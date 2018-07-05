@@ -1,7 +1,6 @@
-
-
 apply plugin:  'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.r00786'
 ext {
     PUBLISH_GROUP_ID = 'com.github'
     PUBLISH_ARTIFACT_ID = 'r00786'
@@ -49,8 +48,7 @@ dependencies {
 
 }
 
-apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.r00786'
+
 // build a jar with source files
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
