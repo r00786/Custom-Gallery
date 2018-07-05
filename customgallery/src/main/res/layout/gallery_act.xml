@@ -7,8 +7,7 @@
     <com.wonderkiln.camerakit.CameraView
         android:id="@+id/camera_custom_gallery"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:ckPermissions="picture" />
+        android:layout_height="match_parent" />
 
     <FrameLayout
         android:id="@+id/bottom_sheet_custom_gallery"
