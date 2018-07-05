@@ -1,5 +1,9 @@
 apply plugin:  'com.android.library'
-apply plugin: 'maven'
+ext {
+    PUBLISH_GROUP_ID = 'com.github'
+    PUBLISH_ARTIFACT_ID = 'r00786'
+    PUBLISH_VERSION = '1.8'
+}
 
 android {
     compileSdkVersion 27
@@ -45,19 +49,4 @@ dependencies {
 apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.r00786'
 
-task androidJavadocs(type: Javadoc) {
-    failOnError = false
-    source = android.sourceSets.main.java.srcDirs
-    ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
-    classpath += files(ext.androidJar)
-}
-
-task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-    classifier = 'javadoc'
-    from androidJavadocs.destinationDir
-}
-
-task androidSourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.srcDirs
-}
+apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
