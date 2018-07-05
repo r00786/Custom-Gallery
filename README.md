@@ -4,6 +4,11 @@ You can add it to your application using the following
 
 
 //In project level gradle file
+
+
+
+
+
 allprojects {
 		repositories {
 			...
@@ -12,6 +17,11 @@ allprojects {
 	}
   
   //In module level build file
+  
+  
+  
+  
+  
   dependencies {
 	        implementation 'com.github.r00786:Whatsappgallery:2.0'
 	}
