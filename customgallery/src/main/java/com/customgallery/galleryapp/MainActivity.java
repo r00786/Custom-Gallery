@@ -30,34 +30,19 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements RecyclerItemClickListener.OnItemClickListener {
+    public static final String IMAGE_KEY = "IMAGE";
     public final int STORAGE_PERMISSION = 109;
     public final int SETTINGS_CODE = 101;
-    public final String IMAGE_KEY = "IMAGE";
-    @BindView(R.id.rv_images)
     RecyclerView rvImage;
-    @BindView(R.id.bottom_sheet)
     View bottomSheet;
-
-    @BindView(R.id.camera)
     CameraView camera;
-    @BindView(R.id.iv_capture)
     ImageView ivCapture;
-    @BindView(R.id.iv_flashOn)
     ImageView ivFlashOn;
-
-    @BindView(R.id.iv_flashOff)
     ImageView ivFlashOff;
-    @BindView(R.id.iv_switchCamera)
     ImageView ivSwitchCamera;
-
-    @BindView(R.id.toolBar)
     Toolbar toolBar;
-    @BindView(R.id.iv_back)
     ImageView ivBack;
 
     private List<GalleryData> DCIMFolderList;
@@ -74,6 +59,25 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
     public static void openGallery(Activity activity, int requestCode) {
         Intent intent = new Intent(activity, MainActivity.class);
         activity.startActivityForResult(intent, requestCode);
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        camera = findViewById(R.id.camera);
+        rvImage = findViewById(R.id.rv_images);
+        bottomSheet = findViewById(R.id.bottom_sheet);
+        ivCapture = findViewById(R.id.iv_capture);
+        ivFlashOn = findViewById(R.id.iv_flashOn);
+        ivFlashOff = findViewById(R.id.iv_flashOff);
+        ivSwitchCamera = findViewById(R.id.iv_switchCamera);
+        toolBar = findViewById(R.id.toolBar);
+        ivBack = findViewById(R.id.iv_back);
+
+        checkForPermission();
+        rvImage.addOnItemTouchListener(new RecyclerItemClickListener(this, rvImage, this));
     }
 
     public void setUpRecyclerView() {
@@ -98,15 +102,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
 
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        checkForPermission();
-        rvImage.addOnItemTouchListener(new RecyclerItemClickListener(this, rvImage, this));
-    }
 
     public void checkForPermission() {
         if (PermissionUtils.hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
@@ -206,12 +201,46 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
         });
     }
 
-    @OnClick(R.id.iv_back)
+    void initClicks() {
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goBack();
+            }
+        });
+        ivCapture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                captureImage();
+            }
+        });
+        ivFlashOn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                flashOn();
+            }
+        });
+        ivFlashOff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                flashOff();
+            }
+        });
+        ivSwitchCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switchCamera();
+            }
+        });
+
+    }
+
+
     void goBack() {
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 
-    @OnClick(R.id.iv_capture)
+
     void captureImage() {
         camera.captureImage(new CameraKitEventCallback<CameraKitImage>() {
             @Override
@@ -229,21 +258,19 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
         });
     }
 
-    @OnClick(R.id.iv_flashOn)
+
     void flashOn() {
         camera.setFlash(1);
         ivFlashOn.setVisibility(View.GONE);
         ivFlashOff.setVisibility(View.VISIBLE);
     }
 
-    @OnClick(R.id.iv_flashOff)
     void flashOff() {
         camera.setFlash(0);
         ivFlashOn.setVisibility(View.VISIBLE);
         ivFlashOff.setVisibility(View.GONE);
     }
 
-    @OnClick(R.id.iv_switchCamera)
     void switchCamera() {
         if (!invertCamera) {
             mSetRightOut.setTarget(ivSwitchCamera);

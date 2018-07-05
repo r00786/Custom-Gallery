@@ -14,8 +14,6 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements HeaderItemDecoration.StickyHeaderInterface {
     public static final int IMAGE_TILE = 0;
@@ -108,16 +106,16 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //    }
 
     class MyViewHolderOne extends RecyclerView.ViewHolder {
-        @BindView(R.id.iv_image)
+
         ImageView ivImage;
 
 
-        @BindView(R.id.view)
         View view;
 
         MyViewHolderOne(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            ivImage = itemView.findViewById(R.id.iv_image);
+            view = itemView.findViewById(R.id.view);
 
         }
 
@@ -127,13 +125,13 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     class MyViewHolderTwo extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_header)
+
         TextView tvHeader;
 
 
         MyViewHolderTwo(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            tvHeader = itemView.findViewById(R.id.tv_header);
 
         }
 
