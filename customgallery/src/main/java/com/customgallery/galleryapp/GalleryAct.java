@@ -22,7 +22,6 @@ import android.widget.Toast;
 import com.wonderkiln.camerakit.CameraKitEventCallback;
 import com.wonderkiln.camerakit.CameraKitImage;
 import com.wonderkiln.camerakit.CameraView;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
