@@ -5,12 +5,12 @@
     android:animateLayoutChanges="true">
 
     <com.wonderkiln.camerakit.CameraView
-        android:id="@+id/camera"
+        android:id="@+id/camera_custom_gallery"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <FrameLayout
-        android:id="@+id/bottom_sheet"
+        android:id="@+id/bottom_sheet_custom_gallery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alpha="1"
@@ -22,14 +22,14 @@
             android:layout_height="wrap_content">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolBar"
+                android:id="@+id/toolBar_custom_gallery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
                 android:visibility="invisible">
 
                 <ImageView
-                    android:id="@+id/iv_back"
+                    android:id="@+id/iv_back_custom_gallery"
                     android:layout_width="@dimen/size_30"
                     android:layout_height="@dimen/size_30"
                     android:contentDescription="@string/image"
@@ -38,10 +38,10 @@
             </android.support.v7.widget.Toolbar>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_images"
+                android:id="@+id/rv_images_custom_gallery"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/toolBar"
+                android:layout_below="@+id/toolBar_custom_gallery"
                 android:background="@color/colorWhite"
                 android:visibility="invisible" />
 
@@ -53,36 +53,36 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/iv_flashOn"
+            android:id="@+id/iv_flashOn_custom_gallery"
             android:layout_width="@dimen/size_25"
             android:layout_height="@dimen/size_25"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/size_40"
             android:layout_marginEnd="@dimen/size_70"
             android:layout_marginRight="@dimen/size_70"
-            android:layout_toLeftOf="@+id/iv_capture"
-            android:layout_toStartOf="@+id/iv_capture"
+            android:layout_toLeftOf="@+id/iv_capture_custom_gallery"
+            android:layout_toStartOf="@+id/iv_capture_custom_gallery"
             android:alpha="1"
             android:contentDescription="@string/image"
             android:src="@drawable/flash_on" />
 
         <ImageView
-            android:id="@+id/iv_flashOff"
+            android:id="@+id/iv_flashOff_custom_gallery"
             android:layout_width="@dimen/size_25"
             android:layout_height="@dimen/size_25"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/size_40"
             android:layout_marginEnd="@dimen/size_70"
             android:layout_marginRight="@dimen/size_70"
-            android:layout_toLeftOf="@+id/iv_capture"
-            android:layout_toStartOf="@+id/iv_capture"
+            android:layout_toLeftOf="@+id/iv_capture_custom_gallery"
+            android:layout_toStartOf="@+id/iv_capture_custom_gallery"
             android:alpha="1"
             android:contentDescription="@string/image"
             android:src="@drawable/flash_off"
             android:visibility="gone" />
 
         <ImageView
-            android:id="@+id/iv_capture"
+            android:id="@+id/iv_capture_custom_gallery"
             android:layout_width="@dimen/size_70"
             android:layout_height="@dimen/size_70"
             android:layout_alignParentBottom="true"
@@ -94,15 +94,15 @@
             android:src="@drawable/capture_button" />
 
         <ImageView
-            android:id="@+id/iv_switchCamera"
+            android:id="@+id/iv_switchCamera_custom_gallery"
             android:layout_width="@dimen/size_25"
             android:layout_height="@dimen/size_25"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/size_40"
             android:layout_marginLeft="@dimen/size_70"
             android:layout_marginStart="@dimen/size_70"
-            android:layout_toEndOf="@+id/iv_capture"
-            android:layout_toRightOf="@+id/iv_capture"
+            android:layout_toEndOf="@+id/iv_capture_custom_gallery"
+            android:layout_toRightOf="@+id/iv_capture_custom_gallery"
             android:alpha="1"
             android:contentDescription="@string/image"
             android:src="@drawable/switch_camera" />

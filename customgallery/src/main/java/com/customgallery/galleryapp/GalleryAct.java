@@ -65,16 +65,16 @@ public class GalleryAct extends AppCompatActivity implements RecyclerItemClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        camera = findViewById(R.id.camera);
-        rvImage = findViewById(R.id.rv_images);
-        bottomSheet = findViewById(R.id.bottom_sheet);
-        ivCapture = findViewById(R.id.iv_capture);
-        ivFlashOn = findViewById(R.id.iv_flashOn);
-        ivFlashOff = findViewById(R.id.iv_flashOff);
-        ivSwitchCamera = findViewById(R.id.iv_switchCamera);
-        toolBar = findViewById(R.id.toolBar);
-        ivBack = findViewById(R.id.iv_back);
+        setContentView(R.layout.gallery_act);
+        camera = findViewById(R.id.camera_custom_gallery);
+        rvImage = findViewById(R.id.rv_images_custom_gallery);
+        bottomSheet = findViewById(R.id.bottom_sheet_custom_gallery);
+        ivCapture = findViewById(R.id.iv_capture_custom_gallery);
+        ivFlashOn = findViewById(R.id.iv_flashOn_custom_gallery);
+        ivFlashOff = findViewById(R.id.iv_flashOff_custom_gallery);
+        ivSwitchCamera = findViewById(R.id.iv_switchCamera_custom_gallery);
+        toolBar = findViewById(R.id.toolBar_custom_gallery);
+        ivBack = findViewById(R.id.iv_back_custom_gallery);
 
         checkForPermission();
         rvImage.addOnItemTouchListener(new RecyclerItemClickListener(this, rvImage, this));
