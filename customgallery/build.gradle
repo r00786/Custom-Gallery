@@ -1,4 +1,7 @@
+
+
 apply plugin:  'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
 ext {
     PUBLISH_GROUP_ID = 'com.github'
     PUBLISH_ARTIFACT_ID = 'r00786'
@@ -48,5 +51,27 @@ dependencies {
 
 apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.r00786'
+// build a jar with source files
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
 
-apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
+task javadoc(type: Javadoc) {
+    failOnError  false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.compile
+}
+
+// build a jar with javadoc
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
