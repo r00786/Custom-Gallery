@@ -74,8 +74,8 @@ public class GalleryAct extends AppCompatActivity implements RecyclerItemClickLi
         ivSwitchCamera = findViewById(R.id.iv_switchCamera_custom_gallery);
         toolBar = findViewById(R.id.toolBar_custom_gallery);
         ivBack = findViewById(R.id.iv_back_custom_gallery);
-
         checkForPermission();
+        initClicks();
         rvImage.addOnItemTouchListener(new RecyclerItemClickListener(this, rvImage, this));
     }
 
