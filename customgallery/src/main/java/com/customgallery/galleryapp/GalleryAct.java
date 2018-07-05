@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements RecyclerItemClickListener.OnItemClickListener {
+public class GalleryAct extends AppCompatActivity implements RecyclerItemClickListener.OnItemClickListener {
     public static final String IMAGE_KEY = "IMAGE";
     public final int STORAGE_PERMISSION = 109;
     public final int SETTINGS_CODE = 101;
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
     private GridLayoutManager gridLayoutManager;
 
     public static void openGallery(Activity activity, int requestCode) {
-        Intent intent = new Intent(activity, MainActivity.class);
+        Intent intent = new Intent(activity, GalleryAct.class);
         activity.startActivityForResult(intent, requestCode);
     }
 
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
         picturesFolderList = new ArrayList<>();
         downloadFolderList = new ArrayList<>();
         imageAdapter = new ImageAdapter(this);
-        gridLayoutManager = new GridLayoutManager(MainActivity.this, ImageAdapter.SPAN_COUNT_IMAGES);
+        gridLayoutManager = new GridLayoutManager(GalleryAct.this, ImageAdapter.SPAN_COUNT_IMAGES);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -249,10 +249,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
                     synchronized (cameraKitImage) {
                         File photo = Utility.writeImage(cameraKitImage.getJpeg());
                         sendResultBackToActivity(photo);
-                        Toast.makeText(MainActivity.this, "Image Clicked", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GalleryAct.this, "Image Clicked", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(MainActivity.this, "Unable to Get The Image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GalleryAct.this, "Unable to Get The Image", Toast.LENGTH_SHORT).show();
                 }
             }
         });
