@@ -30,6 +30,8 @@ allprojects {
   
   # Usage
   for opening gallery
+  
+  
     ```groovy
            
          // first param context
