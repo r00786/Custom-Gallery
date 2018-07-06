@@ -32,7 +32,7 @@ allprojects {
   for opening gallery
   
   
-    ```
+  
            
          // first param context
          //second param request code which you will use for receiving result
@@ -41,7 +41,6 @@ allprojects {
          
         GalleryAct.openGallery(this, 101, true, 1);
     
-    
-    ```
+ 
   
 
