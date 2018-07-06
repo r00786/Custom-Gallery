@@ -32,7 +32,7 @@ allprojects {
   for opening gallery
   
   
-    ```groovy
+    ```
            
          // first param context
          //second param request code which you will use for receiving result
