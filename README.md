@@ -21,10 +21,10 @@ allprojects {
   
   
   
-  ##
+  ```groovy
   dependencies {
 	        implementation 'com.github.r00786:Whatsappgallery:2.0'
 	}
-  
+  ```
   
 
