@@ -7,6 +7,7 @@ public class GalleryData {
     private Date date;
     private File file;
     private boolean header;
+    private boolean selected;
 
     public GalleryData() {
     }
@@ -34,5 +35,13 @@ public class GalleryData {
 
     public void setHeader(boolean header) {
         this.header = header;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

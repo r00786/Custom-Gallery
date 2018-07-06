@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -50,6 +51,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             case IMAGE_TILE:
                 MyViewHolderOne viewHolderOne = (MyViewHolderOne) holder;
                 viewHolderOne.bind(fileList.get(position));
+
                 break;
             default:
                 MyViewHolderTwo myViewHolderTwo = (MyViewHolderTwo) holder;
@@ -105,6 +107,40 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //            notifyItemChanged(selectedItem);
 //    }
 
+    public ArrayList<Integer> selectUnselectItem(ArrayList<Integer> selection, int selectionCount, int position) {
+        if (fileList.get(position).isSelected()) {
+            fileList.get(position).setSelected(false);
+
+            if (selection.contains(position)) {
+                selection.remove(selection.indexOf(position));
+            }
+            notifyItemChanged(position);
+        } else {
+            if (selection.size() < selectionCount) {
+                fileList.get(position).setSelected(true);
+                if (!selection.contains(position)) {
+                    selection.add(position);
+                }
+                notifyItemChanged(position);
+            } else {
+                Toast.makeText(context, "cannot select more then" + " " + selectionCount + " items", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+        return selection;
+    }
+
+    public boolean isItemSelected(int position) {
+        return fileList.get(position).isSelected();
+    }
+
+    public void removeSelection(int position) {
+        fileList.get(position).setSelected(false);
+        notifyDataSetChanged();
+
+    }
+
     class MyViewHolderOne extends RecyclerView.ViewHolder {
 
         ImageView ivImage;
@@ -121,6 +157,11 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         void bind(GalleryData galleryData) {
             Glide.with(itemView).load(galleryData.getFile()).into(ivImage);
+            if (galleryData.isSelected()) {
+                view.setVisibility(View.VISIBLE);
+            } else {
+                view.setVisibility(View.GONE);
+            }
         }
     }
 

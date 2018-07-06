@@ -28,12 +28,29 @@
                 android:background="@color/colorWhite"
                 android:visibility="invisible">
 
-                <ImageView
-                    android:id="@+id/iv_back_custom_gallery"
-                    android:layout_width="@dimen/size_30"
-                    android:layout_height="@dimen/size_30"
-                    android:contentDescription="@string/image"
-                    android:src="@drawable/back" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/size_12">
+
+                    <ImageView
+                        android:id="@+id/iv_back_custom_gallery"
+                        android:layout_width="@dimen/size_30"
+                        android:layout_height="@dimen/size_30"
+                        android:layout_centerVertical="true"
+
+                        android:contentDescription="@string/image"
+                        android:src="@drawable/back" />
+
+                    <ImageView
+                        android:id="@+id/iv_done"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_done_black_24dp"
+                        android:visibility="gone" />
+                </RelativeLayout>
 
             </android.support.v7.widget.Toolbar>
 

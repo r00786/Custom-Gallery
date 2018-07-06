@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.wonderkiln.camerakit.CameraKitEventCallback;
 import com.wonderkiln.camerakit.CameraKitImage;
 import com.wonderkiln.camerakit.CameraView;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,18 +33,25 @@ import java.util.List;
 
 public class GalleryAct extends AppCompatActivity implements RecyclerItemClickListener.OnItemClickListener {
     public static final String IMAGE_KEY = "IMAGE";
+    public static final String SHOULD_OPEN_GALLERY = "OPEN_GALLERY";
+    public static final String SELECTION_COUNT = "SEL_COUNT";
     public final int STORAGE_PERMISSION = 109;
     public final int SETTINGS_CODE = 101;
-    RecyclerView rvImage;
-    View bottomSheet;
-    CameraView camera;
-    ImageView ivCapture;
-    ImageView ivFlashOn;
-    ImageView ivFlashOff;
-    ImageView ivSwitchCamera;
-    Toolbar toolBar;
-    ImageView ivBack;
-
+    public final int SELECTION_STATE_SINGLE = 0;
+    public final int SELECTION_STATE_MULTIPLE = 1;
+    public int selectionState;
+    private boolean mOpenGallery;
+    private int selectionCount;
+    private RecyclerView rvImage;
+    private View bottomSheet;
+    private CameraView camera;
+    private ImageView ivCapture;
+    private ImageView ivFlashOn;
+    private ImageView ivFlashOff;
+    private ImageView ivSwitchCamera;
+    private ImageView ivDone;
+    private Toolbar toolBar;
+    private ImageView ivBack;
     private List<GalleryData> DCIMFolderList;
     private List<GalleryData> picturesFolderList;
     private List<GalleryData> downloadFolderList;
@@ -54,9 +62,13 @@ public class GalleryAct extends AppCompatActivity implements RecyclerItemClickLi
     private boolean invertCamera;
     private BottomSheetBehavior<View> mBottomSheetBehavior;
     private GridLayoutManager gridLayoutManager;
+    private ArrayList<Integer> selectedPositions = new ArrayList<>();
 
-    public static void openGallery(Activity activity, int requestCode) {
+    public static void openGallery(Activity activity, int requestCode, boolean vOpenGallery, int selectionCount) {
         Intent intent = new Intent(activity, GalleryAct.class);
+        intent.putExtra(SHOULD_OPEN_GALLERY, vOpenGallery);
+        intent.putExtra(SELECTION_COUNT, selectionCount);
+        intent.putExtra(SELECTION_COUNT, selectionCount);
         activity.startActivityForResult(intent, requestCode);
     }
 
@@ -74,8 +86,11 @@ public class GalleryAct extends AppCompatActivity implements RecyclerItemClickLi
         ivSwitchCamera = findViewById(R.id.iv_switchCamera_custom_gallery);
         toolBar = findViewById(R.id.toolBar_custom_gallery);
         ivBack = findViewById(R.id.iv_back_custom_gallery);
+        ivDone = findViewById(R.id.iv_done);
         checkForPermission();
         initClicks();
+        mOpenGallery = getIntent().getBooleanExtra(SHOULD_OPEN_GALLERY, false);
+        selectionCount = getIntent().getIntExtra(SELECTION_COUNT, 1);
         rvImage.addOnItemTouchListener(new RecyclerItemClickListener(this, rvImage, this));
     }
 
@@ -177,7 +192,9 @@ public class GalleryAct extends AppCompatActivity implements RecyclerItemClickLi
 
     public void onPress(int position) {
         File photo = newList.get(position).getFile();
-        sendResultBackToActivity(photo);
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add(photo.getAbsolutePath());
+        sendResultBackToActivity(arrayList);
     }
 
     private void setBottomSheetBehavior() {
@@ -195,9 +212,21 @@ public class GalleryAct extends AppCompatActivity implements RecyclerItemClickLi
                     camera.stop();
                 } else if (slideOffset == 0) {
                     camera.start();
+                    removeSelection();
+                    selectedPositions.clear();
+                    ivDone.setVisibility(View.GONE);
                 }
             }
         });
+        if (mOpenGallery) {
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        }
+
+    }
+
+    public void removeSelection() {
+        for (Integer selectedPosition : selectedPositions)
+            imageAdapter.removeSelection(selectedPosition);
     }
 
     void initClicks() {
@@ -231,7 +260,21 @@ public class GalleryAct extends AppCompatActivity implements RecyclerItemClickLi
                 switchCamera();
             }
         });
+        ivDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fetchSelectedFiles();
+            }
+        });
 
+    }
+
+    void fetchSelectedFiles() {
+        ArrayList<String> filesSelected = new ArrayList<>();
+        for (Integer item : selectedPositions) {
+            filesSelected.add(newList.get(item).getFile().getAbsolutePath());
+        }
+        sendResultBackToActivity(filesSelected);
     }
 
 
@@ -247,7 +290,9 @@ public class GalleryAct extends AppCompatActivity implements RecyclerItemClickLi
                 if (cameraKitImage.getJpeg() != null) {
                     synchronized (cameraKitImage) {
                         File photo = Utility.writeImage(cameraKitImage.getJpeg());
-                        sendResultBackToActivity(photo);
+                        ArrayList<String> arrayList = new ArrayList<>();
+                        arrayList.add(photo.getAbsolutePath());
+                        sendResultBackToActivity(arrayList);
                         Toast.makeText(GalleryAct.this, "Image Clicked", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -368,22 +413,42 @@ public class GalleryAct extends AppCompatActivity implements RecyclerItemClickLi
 
     @Override
     public void onItemClick(View view, int position) {
-        onPress(position);
+        if (imageAdapter.isItemSelected(position)) {
+            selectedPositions = imageAdapter.selectUnselectItem(selectedPositions, selectionCount, position);
+            if (!selectedPositions.isEmpty()) {
+                selectionState = SELECTION_STATE_MULTIPLE;
+                ivDone.setVisibility(View.VISIBLE);
+            } else {
+                selectionState = SELECTION_STATE_SINGLE;
+                ivDone.setVisibility(View.GONE);
+            }
+
+        } else {
+            if (selectionState == SELECTION_STATE_SINGLE)
+                onPress(position);
+        }
+
     }
 
     @Override
     public void onLongItemClick(View view, int position) {
 
-        //TODO: for adding long press events
+        //TODO: for adding multiple items
+        selectedPositions = imageAdapter.selectUnselectItem(selectedPositions, selectionCount, position);
+        if (!selectedPositions.isEmpty()) {
+            selectionState = SELECTION_STATE_MULTIPLE;
+            ivDone.setVisibility(View.VISIBLE);
+        } else {
+            selectionState = SELECTION_STATE_SINGLE;
+            ivDone.setVisibility(View.GONE);
+        }
 
 
     }
 
-    public void sendResultBackToActivity(File file) {
-
-        String pathOfFile = file.getAbsolutePath();
+    public void sendResultBackToActivity(ArrayList<String> files) {
         Intent resultIntent = new Intent();
-        resultIntent.putExtra(IMAGE_KEY, pathOfFile);
+        resultIntent.putStringArrayListExtra(IMAGE_KEY, files);
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }

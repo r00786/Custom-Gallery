@@ -15,7 +15,7 @@
         android:id="@+id/view"
         android:layout_width="@dimen/size_120"
         android:layout_height="@dimen/size_120"
-        android:background="@android:color/transparent"
+        android:background="#80000000"
         android:padding="@dimen/size_1"
         android:visibility="gone" />
 </RelativeLayout>
