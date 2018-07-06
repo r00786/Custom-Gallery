@@ -3,12 +3,12 @@ Gallery like Whatsapp which comes from bottom and opens till top with sticky hea
 You can add it to your application using the following
 
 
-//In project level gradle file
+# In project level gradle file
 
 
 
 
-
+##
 allprojects {
 		repositories {
 			...
@@ -16,12 +16,12 @@ allprojects {
 		}
 	}
   
-  //In module level build file
+  # In module level build file
   
   
   
   
-  
+  ##
   dependencies {
 	        implementation 'com.github.r00786:Whatsappgallery:2.0'
 	}
