@@ -31,12 +31,12 @@ allprojects {
   # Usage
   for opening gallery
     ```groovy
-    /**
-         * first param context
-         * second param request code which you will use for receiving result
-         * third param is a boolean put true if you want to open gallery and false if you want to open camera 
-         * selection count is the number of count you allow a user to select images at a time
-         */
+           
+         // first param context
+         //second param request code which you will use for receiving result
+         //third param is a boolean put true if you want to open gallery and false if you want to open camera 
+         //selection count is the number of count you allow a user to select images at a time
+         
         GalleryAct.openGallery(this, 101, true, 1);
     
     
