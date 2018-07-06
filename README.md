@@ -29,7 +29,7 @@ allprojects {
   ```
   
   # Usage
-  for opening gallery
+  for opening gallery or camera
   
   
   
