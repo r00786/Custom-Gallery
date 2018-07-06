@@ -68,7 +68,7 @@ public class GalleryAct extends AppCompatActivity implements RecyclerItemClickLi
         Intent intent = new Intent(activity, GalleryAct.class);
         intent.putExtra(SHOULD_OPEN_GALLERY, vOpenGallery);
         intent.putExtra(SELECTION_COUNT, selectionCount);
-        intent.putExtra(SELECTION_COUNT, selectionCount);
+
         activity.startActivityForResult(intent, requestCode);
     }
 
@@ -87,11 +87,11 @@ public class GalleryAct extends AppCompatActivity implements RecyclerItemClickLi
         toolBar = findViewById(R.id.toolBar_custom_gallery);
         ivBack = findViewById(R.id.iv_back_custom_gallery);
         ivDone = findViewById(R.id.iv_done);
-        checkForPermission();
-        initClicks();
         mOpenGallery = getIntent().getBooleanExtra(SHOULD_OPEN_GALLERY, false);
         selectionCount = getIntent().getIntExtra(SELECTION_COUNT, 1);
         rvImage.addOnItemTouchListener(new RecyclerItemClickListener(this, rvImage, this));
+        checkForPermission();
+        initClicks();
     }
 
     public void setUpRecyclerView() {
@@ -220,6 +220,8 @@ public class GalleryAct extends AppCompatActivity implements RecyclerItemClickLi
         });
         if (mOpenGallery) {
             mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            Utility.manipulateVisibility(1, rvImage, toolBar, ivCapture, ivFlashOn, ivFlashOff, ivSwitchCamera);
+
         }
 
     }
