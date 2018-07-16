@@ -1,4 +1,4 @@
-# WhatsAppGallery
+# Custom Gallery
 Gallery like Whatsapp which comes from bottom and opens till top with sticky headers
 You can add it to your application using the following
 
@@ -24,7 +24,7 @@ allprojects {
   
   ```groovy
   dependencies {
-	        implementation 'com.github.r00786:Whatsappgallery:2.0.3'
+	        implementation 'com.github.r00786:Whatsappgallery:2.0.4'
 	}
   ```
   
