@@ -399,8 +399,10 @@ public class GalleryAct extends AppCompatActivity implements RecyclerItemClickLi
                 galleryData.setFile(newList.get(i).getFile());
                 galleryData.setDate(newList.get(i).getDate());
                 newList.add(1, galleryData);
+
                 newList.get(0).setHeader(true);
-            } else if (Utility.getDateInString(newList.get(i).getDate()).compareTo(Utility.getDateInString(newList.get(i - 1).getDate())) > 0) {
+            } else if (newList.get(i).getDate().getDay() != newList.get(i - 1).getDate().getDay() &&
+                    newList.get(i).getDate().before(newList.get(i - 1).getDate())) {
                 GalleryData galleryData = new GalleryData();
                 galleryData.setFile(newList.get(i).getFile());
                 galleryData.setDate(newList.get(i).getDate());
