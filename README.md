@@ -24,7 +24,7 @@ allprojects {
   
   ```groovy
   dependencies {
-	        implementation 'com.github.r00786:Whatsappgallery:2.0.4'
+	        implementation 'com.github.r00786:Custom-Gallery:2.0.4'
 	}
   ```
   
