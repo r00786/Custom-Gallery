@@ -24,7 +24,7 @@ allprojects {
   
   ```groovy
   dependencies {
-	        implementation 'com.github.r00786:Custom-Gallery:2.0.6'
+	        compile 'com.github.r00786:Custom-Gallery:2.0.6'
 	}
   ```
   
