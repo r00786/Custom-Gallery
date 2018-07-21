@@ -20,6 +20,7 @@ public class SampleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample);
         ivSample = findViewById(R.id.iv_sample);
+
         GalleryAct.openGallery(this, REQ_CODE, true, 10);
 
     }

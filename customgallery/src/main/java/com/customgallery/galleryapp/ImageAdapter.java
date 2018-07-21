@@ -156,7 +156,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         void bind(GalleryData galleryData) {
-            Glide.with(itemView).load(galleryData.getFile()).into(ivImage);
+            Glide.with(itemView.getContext()).load(galleryData.getFile()).into(ivImage);
             if (galleryData.isSelected()) {
                 view.setVisibility(View.VISIBLE);
             } else {
