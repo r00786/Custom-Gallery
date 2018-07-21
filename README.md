@@ -24,7 +24,11 @@ allprojects {
   
   ```groovy
   dependencies {
-	        compile 'com.github.r00786:Custom-Gallery:2.0.6'
+	         implementation('com.github.r00786:Custom-Gallery:2.0.9') {
+                       exclude group: 'com.android.support'
+                       exclude group: 'com.github.bumptech.glide'
+
+                        }
 	}
   ```
   
