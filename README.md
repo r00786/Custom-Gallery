@@ -40,7 +40,19 @@ allprojects {
          //selection count is the number of count you allow a user to select images at a time
          
         GalleryAct.openGallery(this, 101, true, 1);
+	
+	
+ ```groovy	
+	  @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_CODE && resultCode == Activity.RESULT_OK && data != null) {
+
+            ArrayList<String> imagePath = data.getStringArrayListExtra(GalleryAct.IMAGE_KEY);
+            ivSample.setImageURI(Uri.parse(imagePath.get(0)));
+        }
+    }
     
- 
+``` 
   
 
